@@ -22,6 +22,7 @@ deploy:
     - export COMPOSE_COMMAND="docker-compose -p $STACK_NAME"
   script:
     - eval $COMPOSE_COMMAND build --pull
+    - eval $COMPOSE_COMMAND pull -q app db
     # If nginx-proxy is on the network, remove it before calling `down`
     - ((docker network inspect $STACK_NAME -f "{{json .Containers }}" | grep nginx-proxy) && docker network disconnect $STACK_NAME nginx-proxy
       || echo 'Not on network')
