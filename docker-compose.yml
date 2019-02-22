@@ -3,17 +3,27 @@ version: '2.4'
 services:
   app:
     container_name: kevinlarkin-app
-    image: wordpress:5.0
+    image: wordpress:5.0-php7.3-fpm-alpine
     restart: always
     depends_on:
       - db
+    volumes:
+      - kevinlarkin-site:/var/www/html
+    networks:
+      - kevinlarkin
+  web:
+    container_name: kevinlarkin-web
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kevinlarkin-web
+    restart: always
+    depends_on:
+      - app
     environment:
       VIRTUAL_HOST: www.kevinlarkin.co.uk
     networks:
       - kevinlarkin
-    ports:
-      # Only for testing!
-      - 80:80
     volumes:
       - kevinlarkin-site:/var/www/html
   db:
