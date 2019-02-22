@@ -21,8 +21,7 @@ deploy:
     - echo "$CI_REGISTRY_PASSWORD" | docker login -u "$CI_REGISTRY_USER" "$CI_REGISTRY" --password-stdin
     - export COMPOSE_COMMAND="docker-compose -p $STACK_NAME"
   script:
-    - eval $COMPOSE_COMMAND build
-    - eval $COMPOSE_COMMAND pull
+    - eval $COMPOSE_COMMAND build --pull
     # If nginx-proxy is on the network, remove it before calling `down`
     - ((docker network inspect $STACK_NAME -f "{{json .Containers }}" | grep nginx-proxy) && docker network disconnect $STACK_NAME nginx-proxy
       || echo 'Not on network')
