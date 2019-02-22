@@ -3,7 +3,7 @@ version: '2.4'
 services:
   app:
     container_name: kevinlarkin-app
-    image: wordpress:5.0-php7.3-fpm-alpine
+    image: wordpress:5.0-php7.3-fpm
     restart: always
     depends_on:
       - db
