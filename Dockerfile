@@ -1,4 +1,11 @@
+###############################################################################
 FROM nginx:1-alpine AS nginx
 
-ADD nginx/wordpress-vhost.conf /etc/nginx/conf.d/default.conf
+WORKDIR /code/public
 
+ADD docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+###############################################################################
+FROM nginx as web-production
+
+ADD src /code/public
