@@ -1,52 +1,13 @@
 version: '2.4'
-
 services:
-  app:
-    container_name: kevinlarkin-app
-    image: wordpress:5.0-php7.3-fpm
-    restart: always
-    depends_on:
-      - db
-    volumes:
-      - kevinlarkin-site:/var/www/html
-    networks:
-      - kevinlarkin
   web:
     container_name: kevinlarkin-web
     build:
       context: .
       dockerfile: Dockerfile
+      target: nginx
     image: kevinlarkin-web
-    restart: always
-    depends_on:
-      - app
-    environment:
-      VIRTUAL_HOST: www.kevinlarkin.co.uk
-    networks:
-      - kevinlarkin
     volumes:
-      - kevinlarkin-site:/var/www/html
-  db:
-    container_name: kevinlarkin-db
-    image: mysql:5
-    restart: always
-    networks:
-      - kevinlarkin
-    environment:
-      MYSQL_RANDOM_ROOT_PASSWORD: "yes"
-      MYSQL_DATABASE: 'kevinlarkin'
-      MYSQL_USER: 'kevinlarkin'
-      MYSQL_PASSWORD: 'localpassword'
+      - ./src:/code/public
     ports:
-      # Only for migration. Once migrated, close this port.
-      - "33063:3306"
-    volumes:
-      - kevinlarkin-db:/var/lib/mysql
-
-volumes:
-  kevinlarkin-db:
-  kevinlarkin-site:
-
-networks:
-  kevinlarkin:
-    name: kevinlarkin
+      - "80:80"
