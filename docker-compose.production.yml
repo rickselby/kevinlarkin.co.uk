@@ -8,6 +8,14 @@ services:
       VIRTUAL_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+  redirect:
+    image: morbz/docker-web-redirect
+    restart: always
+    environment:
+      VIRTUAL_HOST: ${REDIRECT_VIRTUAL_HOST}
+      LETSENCRYPT_HOST: ${REDIRECT_VIRTUAL_HOST}
+      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      REDIRECT_TARGET: ${VIRTUAL_HOST}
 
 networks:
   default:
