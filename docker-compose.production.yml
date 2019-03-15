@@ -9,6 +9,7 @@ services:
       LETSENCRYPT_HOST: ${VIRTUAL_HOST}
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
   redirect:
+    container_name: kevinlarkin-redirect
     image: morbz/docker-web-redirect
     restart: always
     environment:
