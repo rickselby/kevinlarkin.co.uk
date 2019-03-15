@@ -7,8 +7,7 @@ include:
     file: '/deploy-template.yml'
 
 variables:
-  CONTAINER_PHP_CI: $CI_REGISTRY_IMAGE/php-ci:$CI_COMMIT_SHA
-  CONTAINER_FRONTEND_PROD: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHA
+  CONTAINER_FRONTEND_PROD: $CI_REGISTRY_IMAGE/frontend:$CI_COMMIT_SHORT_SHA
   COMPOSE_FILE_PATH: docker-compose.production.yml
 
 build-prod:
