@@ -2,21 +2,24 @@ version: '2.4'
 services:
   web:
     container_name: kevinlarkin-web
-    image: $CONTAINER_FRONTEND_PROD
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: web-production
     restart: always
     environment:
-      VIRTUAL_HOST: ${VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+      VIRTUAL_HOST: www.kevinlarkin.co.uk
+      LETSENCRYPT_HOST: www.kevinlarkin.co.uk
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
   redirect:
     container_name: kevinlarkin-redirect
     image: morbz/docker-web-redirect
     restart: always
     environment:
-      VIRTUAL_HOST: ${REDIRECT_VIRTUAL_HOST}
-      LETSENCRYPT_HOST: ${REDIRECT_VIRTUAL_HOST}
+      VIRTUAL_HOST: kevinlarkin.co.uk
+      LETSENCRYPT_HOST: kevinlarkin.co.uk
       LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
-      REDIRECT_TARGET: ${VIRTUAL_HOST}
+      REDIRECT_TARGET: www.kevinlarkin.co.uk
 
 networks:
   default:

@@ -1,0 +1,30 @@
+on:
+  push:
+    branches:
+      - github
+
+jobs:
+  deploy:
+    name: Deploy to remote server
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_CERT_PATH: certs
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up certificate for remote server
+        run: |
+          mkdir $DOCKER_CERT_PATH
+          echo "${{ secrets.CA }}" > $DOCKER_CERT_PATH/ca.pem
+          echo "${{ secrets.CLIENT_CERT }}" > $DOCKER_CERT_PATH/cert.pem
+          echo "${{ secrets.CLIENT_KEY }}" > $DOCKER_CERT_PATH/key.pem
+      - name: Deploy the stack
+        env:
+          DOCKER_HOST: ${{ secrets.REMOTE_DOCKER_HOST }}
+          DOCKER_TLS_VERIFY: 1
+          LETSENCRYPT_EMAIL: ${{ secrets.LETSENCRYPT_EMAIL }}
+        run: |
+          ARGS="-f docker-compose.production.yml -p kevinlarkin"
+          docker-compose $ARGS build --pull
+          docker-compose $ARGS pull
+          docker-compose $ARGS up -d --remove-orphans
