@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - github
+      - main
 
 jobs:
   deploy:
