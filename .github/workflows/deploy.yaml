@@ -12,12 +12,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: rickselby-web-server/actions/server-certificate
+      - uses: rickselby-web-server/actions/server-certificate@main
         with:
           CA: ${{ secrets.CA }}
           CLIENT_CERT: ${{ secrets.CLIENT_CERT }}
           CLIENT_KEY: ${{ secrets.CLIENT_KEY }}
-      - uses: rickselby-web-server/actions/docker-compose-deploy
+      - uses: rickselby-web-server/actions/docker-compose-deploy@main
         with:
           COMPOSE_FILE_PATH: docker-compose.production.yml
           STACK_NAME: kevinlarkin
