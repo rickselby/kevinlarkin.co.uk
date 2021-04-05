@@ -7,9 +7,6 @@ jobs:
   deploy:
     name: Deploy to remote server
     runs-on: ubuntu-latest
-    env:
-      DOCKER_CERT_PATH: certs
-
     steps:
       - uses: actions/checkout@v2
       - uses: rickselby-web-server/actions/server-certificate@main
