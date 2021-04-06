@@ -10,7 +10,7 @@ services:
     environment:
       VIRTUAL_HOST: www.kevinlarkin.co.uk
       LETSENCRYPT_HOST: www.kevinlarkin.co.uk
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      LETSENCRYPT_EMAIL:
   redirect:
     container_name: kevinlarkin-redirect
     image: morbz/docker-web-redirect
@@ -18,7 +18,7 @@ services:
     environment:
       VIRTUAL_HOST: kevinlarkin.co.uk
       LETSENCRYPT_HOST: kevinlarkin.co.uk
-      LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+      LETSENCRYPT_EMAIL:
       REDIRECT_TARGET: www.kevinlarkin.co.uk
 
 networks:
