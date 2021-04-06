@@ -16,7 +16,7 @@ jobs:
           CLIENT_KEY: ${{ secrets.CLIENT_KEY }}
       - uses: rickselby-web-server/actions/docker-compose-deploy@main
         with:
-          COMPOSE_FILE_PATH: docker-compose.production.yml
+          COMPOSE_FILE_PATH: docker-compose.production.yaml
           STACK_NAME: kevinlarkin
         env:
           DOCKER_HOST: ${{ secrets.REMOTE_DOCKER_HOST }}
