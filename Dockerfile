@@ -1,5 +1,5 @@
 ###############################################################################
-FROM nginx:1.25.3-alpine AS nginx
+FROM nginx:1.25.3-alpine3.18 AS nginx
 
 ENV NGINX_ENTRYPOINT_WORKER_PROCESSES_AUTOTUNE=1
 
